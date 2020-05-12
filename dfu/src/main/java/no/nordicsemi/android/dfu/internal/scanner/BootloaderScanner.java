@@ -61,5 +61,5 @@ public interface BootloaderScanner {
 	 * Null is returned when Bluetooth is off or the device has not been found.
 	 */
 	@Nullable
-	String searchFor(final String deviceAddress);
+	String searchFor(final String deviceAddress, final String deviceName);
 }

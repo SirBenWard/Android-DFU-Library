@@ -32,6 +32,7 @@ import java.util.Locale;
  */
 public class BootloaderScannerJB implements BootloaderScanner, BluetoothAdapter.LeScanCallback {
 	private final Object mLock = new Object();
+	private String mDeviceName;
 	private String mDeviceAddress;
 	private String mDeviceAddressIncremented;
 	private String mBootloaderAddress;
@@ -39,11 +40,12 @@ public class BootloaderScannerJB implements BootloaderScanner, BluetoothAdapter.
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public String searchFor(final String deviceAddress) {
+	public String searchFor(final String deviceAddress, final String deviceName) {
 		final String firstBytes = deviceAddress.substring(0, 15);
 		final String lastByte = deviceAddress.substring(15); // assuming that the device address is correct
 		final String lastByteIncremented = String.format(Locale.US, "%02X", (Integer.valueOf(lastByte, 16) + ADDRESS_DIFF) & 0xFF);
 
+		mDeviceName = deviceName;
 		mDeviceAddress = deviceAddress;
 		mDeviceAddressIncremented = firstBytes + lastByteIncremented;
 		mBootloaderAddress = null;
@@ -92,9 +94,10 @@ public class BootloaderScannerJB implements BootloaderScanner, BluetoothAdapter.
 
 	@Override
 	public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
-		final String address = device.getAddress();
+		final String address = result.getDevice().getAddress();
+		final String name = result.getDevice().getName();
 
-		if (mDeviceAddress.equals(address) || mDeviceAddressIncremented.equals(address)) {
+		if (mDeviceName.equals(name) || mDeviceAddress.equals(address) || mDeviceAddressIncremented.equals(address)) {
 			mBootloaderAddress = address;
 			mFound = true;
 

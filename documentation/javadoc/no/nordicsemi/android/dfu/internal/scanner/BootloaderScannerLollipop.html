@@ -244,9 +244,9 @@ implements <a href="../../../../../../no/nordicsemi/android/dfu/internal/scanner
 <ul class="blockList">
 <li class="blockList">
 <h4>searchFor</h4>
-<pre>public&nbsp;java.lang.String&nbsp;searchFor(java.lang.String&nbsp;deviceAddress)</pre>
+<pre>public&nbsp;java.lang.String&nbsp;searchFor(java.lang.String&nbsp;deviceAddress, java.lang.String&nbsp;deviceName)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../../no/nordicsemi/android/dfu/internal/scanner/BootloaderScanner.html#searchFor-java.lang.String-">BootloaderScanner</a></code></span></div>
-<div class="block">Searches for the advertising bootloader. The bootloader may advertise with the same device address or one with the last byte incremented by 1.
+<div class="block">Searches for the advertising bootloader. The bootloader may advertise with the same device name, or address or one with the last byte incremented by 1.
  This method is a blocking one and ends when such device is found. There are two implementations of this interface - one for Androids 4.3 and 4.4.x and one for
  the Android 5+ devices.</div>
 <dl>
